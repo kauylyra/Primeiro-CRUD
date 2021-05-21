@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Application.Models.ClienteViewModel>
+
+@{
+    ViewBag.Title = "Clientes";
+}
+
+@if (TempData["Mensagem"] != null)
+{
+    <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <h3>@TempData["Mensagem"].ToString()</h3>
+    </div>
+}
+@if (TempData["Mensagem1"] != null)
+{
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <h3>@TempData["Mensagem1"].ToString()</h3>
+    </div>
+}
+
+<h2>Gestão de Clientes</h2>
+
+<p>
+    <div>
+        <a href="@Url.Action("Create")" class="btn btn-primary">Novo Cliente</a><br /><br />
+    </div>
+</p>
+<table class="table table-striped table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Data_Nascimento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Salario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sexo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @(item.Data_Nascimento.ToString("dd/MM/yyyy"))
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salario)
+            </td>
+            <td>
+                @(item.Sexo == "M" ? "Masculino" : "Feminino")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ativo)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit","Clientes", new {id = item.Id_Cliente }) " class="btn btn-warning">Editar</a>
+                <a href="@Url.Action("Details","Clientes", new {id = item.Id_Cliente }) " class="btn btn-primary">Detalhes</a>
+                <a href="@Url.Action("Delete","Clientes", new {id = item.Id_Cliente }) " class="btn btn-danger">Excluir</a>
+
+            </td>
+        </tr>
+    }
+
+</table>
